@@ -15,6 +15,8 @@ const pool = new Pool({
   port: 5432,
 });
 
+
+
 app.get("/", async (req, res) => {
   const result = await pool.query("SELECT NOW()");
   res.json(result.rows);
@@ -24,8 +26,14 @@ app.get("/hello", async (req, res)=>{
   res.send("Hello World desde DOcker! papa loquesea");
 })
 
-app.listen(5000, () => {
-  console.log("Backend corriendo en puerto 5000");
+app.get("/port", (req, res) =>{
+  res.send(`<h1>Backend corriendo en puerto ${PORT}</h1>`)
+})
+
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Backend corriendo en puerto ${PORT}`);
 });
 
 
